@@ -7,7 +7,7 @@ export default function Home({ posts }) {
       <ul>
         {posts.data.map((post) => (
           <li key={post.id}>
-            <Link href={`/${post.attributes.slug}`}>
+            <Link href={`/blog/${post.attributes.slug}`}>
               <a>{post.attributes.title} </a>
             </Link>
             -- <em>{post.attributes.author.data.attributes.username}</em>
