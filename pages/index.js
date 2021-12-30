@@ -7,10 +7,11 @@ export default function Home({ posts }) {
       <ul>
         {posts.data.map((post) => (
           <li key={post.id}>
-            <strong>{post.attributes.title} </strong>
-            <em>{post.attributes.author.data.attributes.username}</em>
+            <Link href={`/${post.attributes.slug}`}>
+              <a>{post.attributes.title} </a>
+            </Link>
+            -- <em>{post.attributes.author.data.attributes.username}</em>
             <br />
-            -- {post.attributes.slug} <br />
             {post.attributes.images.data.map((image) => {
               if (image.attributes.formats) {
                 return (
