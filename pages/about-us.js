@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
 
 export default function About({ about }) {
   return (
     <>
       <h1>About Us</h1>
       <div>qwe123</div>
+      <ReactMarkdown>{about.data.attributes.body}</ReactMarkdown>
       {about.data.attributes.images.data.map((image) => {
         return (
           <Image
@@ -16,7 +18,6 @@ export default function About({ about }) {
           />
         );
       })}
-      <pre>{JSON.stringify(about.data, null, '\t')}</pre>
     </>
   );
 }
