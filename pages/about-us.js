@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
+import { STRAPI_URL } from '../config/settings';
 
 export default function About({ about }) {
   return (
@@ -36,7 +37,7 @@ export default function About({ about }) {
 
 export async function getStaticProps() {
   const res = await fetch(
-    'http://localhost:1337/api/about-us?populate[images][fields][0]=url&populate[images][fields][1]=formats&populate[images][fields][2]=provider'
+    `${STRAPI_URL}/api/about-us?populate[images][fields][0]=url&populate[images][fields][1]=formats&populate[images][fields][2]=provider`
   );
   const about = await res.json();
 

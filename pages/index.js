@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { STRAPI_URL } from '../config/settings';
 export default function Home({ posts }) {
   return (
     <>
@@ -50,7 +51,7 @@ export default function Home({ posts }) {
 
 export async function getStaticProps() {
   const res = await fetch(
-    'http://localhost:1337/api/posts?populate[author][fields][0]=username&populate[images][fields][1]=url&populate[images][fields][2]=formats&populate[images][fields][3]=provider'
+    `${STRAPI_URL}/api/posts?populate[author][fields][0]=username&populate[images][fields][1]=url&populate[images][fields][2]=formats&populate[images][fields][3]=provider`
   );
   const posts = await res.json();
   console.log(posts);

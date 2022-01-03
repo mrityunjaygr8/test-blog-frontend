@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
+import { STRAPI_URL } from '../../config/settings';
 export default function Blog({ post }) {
   return (
     <>
@@ -40,7 +41,7 @@ export default function Blog({ post }) {
 
 export const getStaticProps = async (context) => {
   const res = await fetch(
-    `http://localhost:1337/api/posts?populate[author][fields][0]=username&populate[images][fields][1]=url&populate[images][fields][2]=formats&filters[slug][$eq]=${context.params.slug}&populate[images][fields][3]=provider`
+    `${STRAPI_URL}/api/posts?populate[author][fields][0]=username&populate[images][fields][1]=url&populate[images][fields][2]=formats&filters[slug][$eq]=${context.params.slug}&populate[images][fields][3]=provider`
   );
   const data = await res.json();
   const post = data.data[0];
@@ -51,7 +52,7 @@ export const getStaticProps = async (context) => {
 };
 
 export async function getStaticPaths() {
-  const res = await fetch('http://localhost:1337/api/posts');
+  const res = await fetch(`${STRAPI_URL}/api/posts`);
   const { data: posts } = await res.json();
 
   const paths = posts.map((post) => ({
