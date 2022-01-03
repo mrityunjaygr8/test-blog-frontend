@@ -54,7 +54,6 @@ export async function getStaticProps() {
     `${STRAPI_URL}/api/posts?populate[author][fields][0]=username&populate[images][fields][1]=url&populate[images][fields][2]=formats&populate[images][fields][3]=provider`
   );
   const posts = await res.json();
-  console.log(posts);
 
   return {
     props: { posts },
