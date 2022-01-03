@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import MyImage from '../components/image';
 import Link from 'next/link';
 import { STRAPI_URL } from '../config/settings';
 export default function Home({ posts }) {
@@ -15,27 +15,7 @@ export default function Home({ posts }) {
             <br />
             {post.attributes.images.data.map((image) => {
               if (image.attributes.formats) {
-                if (image.attributes.provider === 'local') {
-                  return (
-                    <Image
-                      key={image.id}
-                      alt={`http://localhost:1337${image.attributes.formats.thumbnail.url}`}
-                      src={`http://localhost:1337${image.attributes.formats.thumbnail.url}`}
-                      height={image.attributes.formats.thumbnail.height}
-                      width={image.attributes.formats.thumbnail.width}
-                    />
-                  );
-                } else {
-                  return (
-                    <Image
-                      key={image.id}
-                      alt={image.attributes.formats.thumbnail.url}
-                      src={image.attributes.formats.thumbnail.url}
-                      height={image.attributes.formats.thumbnail.height}
-                      width={image.attributes.formats.thumbnail.width}
-                    />
-                  );
-                }
+                return <MyImage image={image} key={image.id} />;
               }
             })}
             {/* <pre>{JSON.stringify(post, null, '\t')}</pre> */}
