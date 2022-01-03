@@ -14,17 +14,27 @@ export default function Home({ posts }) {
             <br />
             {post.attributes.images.data.map((image) => {
               if (image.attributes.formats) {
-                return (
-                  <Image
-                    key={image.id}
-                    src={`http://localhost:1337${image.attributes.formats.thumbnail.url}`}
-                    alt={image.attributes.url}
-                    width={image.attributes.formats.thumbnail.width}
-                    height={image.attributes.formats.thumbnail.height}
-                  />
-                );
-              } else {
-                return <div key={image.id}>nope</div>;
+                if (image.attributes.provider === 'local') {
+                  return (
+                    <Image
+                      key={image.id}
+                      alt={`http://localhost:1337${image.attributes.formats.thumbnail.url}`}
+                      src={`http://localhost:1337${image.attributes.formats.thumbnail.url}`}
+                      height={image.attributes.formats.thumbnail.height}
+                      width={image.attributes.formats.thumbnail.width}
+                    />
+                  );
+                } else {
+                  return (
+                    <Image
+                      key={image.id}
+                      alt={image.attributes.formats.thumbnail.url}
+                      src={image.attributes.formats.thumbnail.url}
+                      height={image.attributes.formats.thumbnail.height}
+                      width={image.attributes.formats.thumbnail.width}
+                    />
+                  );
+                }
               }
             })}
             {/* <pre>{JSON.stringify(post, null, '\t')}</pre> */}
@@ -40,7 +50,7 @@ export default function Home({ posts }) {
 
 export async function getStaticProps() {
   const res = await fetch(
-    'http://localhost:1337/api/posts?populate[author][fields][0]=username&populate[images][fields][1]=url&populate[images][fields][2]=formats'
+    'http://localhost:1337/api/posts?populate[author][fields][0]=username&populate[images][fields][1]=url&populate[images][fields][2]=formats&populate[images][fields][3]=provider'
   );
   const posts = await res.json();
   console.log(posts);
